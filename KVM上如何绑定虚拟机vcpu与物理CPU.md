@@ -28,7 +28,11 @@ ps -e -o pid,args,psr
 ​	
 
 ```
-绑定命令：virsh vcpupin 4 0 8：绑定domain 4  的vcpu0 到物理CPU8
+绑定命令：
+
+virsh vcpupin 4 0 8
+
+：绑定domain 4  的vcpu0 到物理CPU8
 ```
 
 
