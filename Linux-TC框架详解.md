@@ -1,4 +1,4 @@
-[]: http://www.sdnlab.com/19208.html	"Open vSwitch之QoS的实现"
+
 
 
 
@@ -460,4 +460,12 @@ tc filter del dev eth0 parent 1:0 protocol ip prio 100 route to 10
       
     ip route del 192.168.1.0/24 dev eth0 via 192.168.1.66 realm 4  
 ```
+
+
+
+
+
+PS:
+
+[Open vSwitch之QoS的实现]: http://www.sdnlab.com/19208.html
 
