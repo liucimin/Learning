@@ -1,3 +1,5 @@
+[]: http://www.sdnlab.com/19208.html	"Open vSwitch之QoS的实现"
+
 
 
 # TC的安装
@@ -38,9 +40,9 @@ Linux 操作系统中的流量控制器 TC(Traffic Control) 用于Linux内核的
 
 Linux流量控制的基本原理如下图所示。
 
-![img](http://img.blog.csdn.net/20150511093020861?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTY0MTg4NQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
 
+![](.\Images\20150511093020861.png)
 
 接收包从输入接口（Input Interface）进来后，经过流量限制（Ingress Policing）丢弃不符合规定的数据包，由输入多路分配器（Input 
 De-Multiplexing）进行判断选择。如果接收包的目的地是本主机，那么将该包送给上层处理，否则需要进行转发，将接收包交到转发块（ForwardingBlock）处理。转发块同时也接收本主机上层（TCP、UDP等）产生的包。转发块通过查看路由表，决定所处理包的下一跳。然后，对包进行排列以便将它们传送到输出接口（Output Interface）。**一般我们只能限制网卡发送的数据包，不能限制网卡接收的数据包**，所以我们可以通过改变发送次序来控制传输速率。Linux流量控制主要是在**输出接口排列**时进行处理和实现的。
@@ -162,15 +164,15 @@ HTB型的一些注意：
 
 ##### 带宽或者流速单位：
 
-![img](http://img.blog.csdn.net/20150511134819738?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTY0MTg4NQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![](.\Images\20150511134819738.png)
 
 ##### 数据的数量单位
 
-![img](http://img.blog.csdn.net/20150511135207564?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTY0MTg4NQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![](.\Images\20150511135207564.png)
 
 ##### 时间的计量单位：
 
-![img](http://img.blog.csdn.net/20150511135126939?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTY0MTg4NQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![](.\Images\20150511135126939.png)
 
 
 
