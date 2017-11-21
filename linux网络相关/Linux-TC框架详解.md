@@ -1,6 +1,10 @@
 
 
+**最重要的参考**:
 
+[Linux的高级路由和流量控制](http://www.lartc.org/LARTC-zh_CN.GB2312.pdf)
+
+[Open vSwitch之QoS的实现](http://www.sdnlab.com/19208.html)
 
 # TC的安装
 
@@ -464,8 +468,4 @@ tc filter del dev eth0 parent 1:0 protocol ip prio 100 route to 10
 
 
 
-
-PS:
-
-[Open vSwitch之QoS的实现]: http://www.sdnlab.com/19208.html
 
