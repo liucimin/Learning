@@ -19,7 +19,7 @@ TC是Linux自带的模块，一般情况下不需要另行安装，可以用 man
 
 ​      
 
-Linux中的QoS分为入口(Ingress)部分和出口(Egress)部分，入口部分主要用于进行入口流量限速(policing)，出口部分主要用于队列调度(queuingscheduling)。大多数排队规则(qdisc)都是用于输出方向的，输入方向只有一个排队规则，即ingressqdisc。ingressqdisc本身的功能很有限，但可用于重定向incomingpackets。通过Ingressqdisc把输入方向的数据包重定向到虚拟设备ifb，而ifb的输出方向可以配置多种qdisc，就可以达到对输入方向的流量做队列调度的目的。
+Linux中的QoS分为入口(Ingress)部分和出口(Egress)部分，入口部分主要用于进行入口流量限速(policing)，出口部分主要用于队列调度(queuingscheduling)。大多数排队规则(qdisc)都是用于输出方向的，输入方向只有一个排队规则，即ingressqdisc。ingressqdisc本身的功能很有限，输入方向只有一个排队规则，即ingressqdisc（因为没有缓存只能实现流量的drop）但可用于重定向incomingpackets。通过Ingressqdisc把输入方向的数据包重定向到虚拟设备ifb，而ifb的输出方向可以配置多种qdisc，就可以达到对输入方向的流量做队列调度的目的。
 
  Ingress 限速只能对整个网卡入流量限速，无队列之分：
 
@@ -46,10 +46,13 @@ Linux流量控制的基本原理如下图所示。
 
 
 
-![](.\Images\20150511093020861.png)
+![](..\Images\20150511093020861.png)
 
-接收包从输入接口（Input Interface）进来后，经过流量限制（Ingress Policing）丢弃不符合规定的数据包，由输入多路分配器（Input 
-De-Multiplexing）进行判断选择。如果接收包的目的地是本主机，那么将该包送给上层处理，否则需要进行转发，将接收包交到转发块（ForwardingBlock）处理。转发块同时也接收本主机上层（TCP、UDP等）产生的包。转发块通过查看路由表，决定所处理包的下一跳。然后，对包进行排列以便将它们传送到输出接口（Output Interface）。**一般我们只能限制网卡发送的数据包，不能限制网卡接收的数据包**，所以我们可以通过改变发送次序来控制传输速率。Linux流量控制主要是在**输出接口排列**时进行处理和实现的。
+接收包从输入接口（Input Interface）进来后，经过流量限制（Ingress Policing）丢弃不符合规定的数据包，由输入多路分配器（Input  De-Multiplexing）进行判断选择。如果接收包的目的地是本主机，那么将该包送给上层处理，否则需要进行转发，将接收包交到转发块（ForwardingBlock）处理。转发块同时也接收本主机上层（TCP、UDP等）产生的包。转发块通过查看路由表，决定所处理包的下一跳。然后，对包进行排列以便将它们传送到输出接口（Output Interface）。
+
+
+
+**一般我们只能限制网卡发送的数据包，不能限制网卡接收的数据包**，所以我们可以通过改变发送次序来控制传输速率。Linux流量控制主要是在**输出接口排列**时进行处理和实现的。
 
 
 
